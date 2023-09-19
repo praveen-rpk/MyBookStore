@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Responsive Contact Us Form | CodingLab</title>
+    <link rel="stylesheet" href="css/contactstyle.css" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="content">
+        <div class="left-side">
+          <div class="address details">
+            <i class="fas fa-map-marker-alt"></i>
+            <div class="topic">Address</div>
+            <div class="text-one">Surkhet, NP12</div>
+            <div class="text-two">Birendranagar 06</div>
+          </div>
+          <div class="phone details">
+            <i class="fas fa-phone-alt"></i>
+            <div class="topic">Phone</div>
+            <div class="text-one">+0098 9893 5647</div>
+            <div class="text-two">+0096 3434 5678</div>
+          </div>
+          <div class="email details">
+            <i class="fas fa-envelope"></i>
+            <div class="topic">Email</div>
+            <div class="text-one">codinglab@gmail.com</div>
+            <div class="text-two">info.codinglab@gmail.com</div>
+          </div>
+        </div>
+        <div class="right-side">
+          <div class="topic-text">Send us a message</div>
+          <p>If you have any work from me or any types of queries related to my tutorial, you can send me message from here. It's my pleasure to help you.</p>
+          
+          <form method="post" action="https://script.google.com/macros/s/AKfycbw7gKZdSHjGF7WZp94IvcEyqFkLD0yyITOEgLqF95Dyc891rezk4gfZSyUssUrDK42_HQ/exec" 
+            name="Contact-Form" id="contact-form">
+            <div class="input-box">
+              <input type="text" name="Name" placeholder="Enter your name" />
+            </div>
+            <div class="input-box">
+              <input type="text" name="Email" placeholder="Enter your email" />
+            </div>
+            <div class="input-box message-box">
+              <textarea name="Message" placeholder="Enter your message"></textarea>
+            </div>
+            <div class="button">
+              <input type="submit" value="Send Now" id="submit-button" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("contact-form");
+        const submitButton = document.getElementById("submit-button");
+        const modal = document.getElementById("myModal");
+        const closeButton = document.getElementsByClassName("close")[0];
+    
+        form.addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the form from submitting normally
+    
+          // Disable the submit button
+          submitButton.disabled = true;
+    
+          // Simulate form submission (you should remove this)
+          setTimeout(function () {
+            // Submit the form to your Google Apps Script
+            fetch(form.action, {
+              method: "POST",
+              body: new FormData(form),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                // Display the modal
+                modal.style.display = "block";
+    
+                // Reset the form after displaying the message
+                form.reset();
+    
+                // Re-enable the submit button
+                submitButton.disabled = false;
+              })
+              .catch((error) => {
+                // Handle any errors if needed
+                console.error("Form submission error:", error);
+                // Display an error message if submission fails
+                modal.style.display = "block";
+    
+                // Re-enable the submit button in case of an error
+                submitButton.disabled = false;
+              });
+          }, 1000); // You can adjust the time (in milliseconds) the message stays visible
+    
+          // Close the modal when the close button is clicked
+          closeButton.addEventListener("click", function () {
+            modal.style.display = "none";
+          });
+    
+          // Close the modal when the user clicks anywhere outside the modal content
+          window.addEventListener("click", function (event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+          });
+        });
+      });
+    </script>
+    
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p class="success-message">Thank you for submitting!</p>
+      </div>
+    </div>    
+  </body>
+</html>
